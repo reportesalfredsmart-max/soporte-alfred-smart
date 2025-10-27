@@ -1,0 +1,1 @@
+# soporte-alfred-smart
