@@ -69,3 +69,21 @@ body {
 .navbar-brand:hover img {
     transform: scale(1.05); /* Un ligero zoom al pasar el ratón */
 }
+
+/* --- Personalización de la Barra de Navegación --- */
+
+/* Sobrescribimos el color de fondo de la barra para que sea un azul más claro */
+.navbar.bg-primary {
+    background-color: #5DADE2 !important;
+}
+
+/* Opcional: Cambiamos el color del texto para que contraste bien con el nuevo fondo */
+.navbar.bg-primary .navbar-brand,
+.navbar.bg-primary .nav-link {
+    color: #0c2d40 !important; /* Un azul oscuro para el texto */
+}
+
+/* Opcional: Cambiamos el color del texto al pasar el ratón */
+.navbar.bg-primary .nav-link:hover {
+    color: #ffffff !important; /* Blanco para el hover */
+}
