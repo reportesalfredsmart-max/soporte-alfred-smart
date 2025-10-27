@@ -1,0 +1,60 @@
+/* css/style.css */
+
+/* Importamos una fuente moderna desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Personalizamos los colores principales */
+.bg-primary {
+    background-color: #0056b3 !important; /* Un azul un poco más oscuro y corporativo */
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+}
+
+.nav-link:hover {
+    color: #d4e5ff !important; /* Un azul muy claro para el hover */
+}
+
+/* Damos estilo a las tarjetas (cards) */
+.card {
+    border: none;
+    border-radius: 15px;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: none;
+}
+
+/* Mejoramos la apariencia de los campos del formulario */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Estilos para el mensaje de estado del formulario */
+#form-status {
+    border-radius: 10px;
+}
+
+#form-status.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+#form-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
