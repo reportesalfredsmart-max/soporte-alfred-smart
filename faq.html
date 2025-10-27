@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas Frecuentes - Alfred Smart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Barra de Navegación (igual que en las otras páginas) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-tools"></i> Alfred Smart Soporte
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Reportar Incidencia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Ver mi Ticket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="manuales.html">Manuales</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0"><i class="bi bi-question-circle-fill"></i> Preguntas Frecuentes (FAQ)</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted">Encuentra respuestas rápidas a las dudas más comunes sobre el sistema Alfred Smart. Si no encuentras lo que buscas, no dudes en <a href="index.html">reportar una incidencia</a>.</p>
+                        
+                        <!-- Acordeón de Preguntas y Respuestas -->
+                        <div class="accordion" id="faqAccordion">
+                            
+                            <!-- Pregunta 1 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        ¿Qué hago si la aplicación no se conecta al Gateway?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <strong>Respuesta:</strong> Asegúrate de que el Gateway Alfred Smart esté encendido y que el cable "Domótica" esté correctamente conectado a tu router. También verifica que tu teléfono tenga conexión a internet. Si el problema persiste, reinicia el Gateway desconectándolo y volviéndolo a conectar después de 30 segundos.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pregunta 2 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        ¿Cómo puedo registrar mi vivienda en la aplicación?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <strong>Respuesta:</strong> Abre la app Alfred Smart y selecciona "Registrarse". Escanea el código QR que se encuentra en tu Gateway Alfred Smart. Completa los datos solicitados y revisa tu correo para hacer clic en el enlace de confirmación y activar tu cuenta.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pregunta 3 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        La luz de mi vivienda no responde desde la aplicación. ¿Qué puede ser?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <strong>Respuesta:</strong> Verifica el cuadro domótico (generalmente al lado del cuadro eléctrico). Asegúrate de que la pestaña del dispositivo esté en la posición "AUTO". Si está en la posición "I", el sistema Smart Home está desactivado y no podrás gestionar la iluminación desde la app.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AÑADIREMOS MÁS PREGUNTAS AQUÍ -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
