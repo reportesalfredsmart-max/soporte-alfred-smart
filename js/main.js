@@ -42,71 +42,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- 2. LÓGICA DE ENVÍO DEL FORMULARIO (CORREGIDA Y LIMPIA) ---
 
-  // --- 2. LÓGICA DE ENVÍO DEL FORMULARIO (MEJORADA) ---
+    const form = document.getElementById('incident-form');
+    const statusDiv = document.getElementById('form-status');
 
-const form = document.getElementById('incident-form');
-const statusDiv = document.getElementById('form-status');
+    form.addEventListener('submit', async function (e) {
+        // Prevenimos el comportamiento por defecto del formulario (recargar la página)
+        e.preventDefault();
+        
+        // Mostramos el div y el mensaje de carga
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'alert alert-info'; // Usamos clases de Bootstrap
+        statusDiv.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando reporte...';
 
-form.addEventListener('submit', async function (e) {
-    // Prevenimos el comportamiento por defecto del formulario (recargar la página)
-    e.preventDefault();
-    
-    // Mostramos el div y el mensaje de carga
-    statusDiv.style.display = 'block';
-    statusDiv.className = 'alert alert-info'; // Usamos clases de Bootstrap
-    statusDiv.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando reporte...';
+        const formData = new FormData(form);
 
-    const formData = new FormData(form);
+        try {
+            const response = await fetch('/.netlify/functions/submit-ticket', {
+                method: 'POST',
+                body: formData,
+            });
 
-    try {
-        const response = await fetch('/.netlify/functions/submit-ticket', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            // Mensaje de éxito
-            statusDiv.className = 'alert alert-success';
-            statusDiv.innerHTML = `
-                <h4 class="alert-heading"><i class="bi bi-check-circle-fill"></i> ¡Reporte enviado con éxito!</h4>
-                <p class="mb-0">Tu número de ticket es: <strong>${result.ticketId}</strong></p>
-                <hr>
-                <p class="mb-0">Recibirás una confirmación por correo en breve.</p>
-            `;
-            form.reset();
-            subcategoriaContainer.style.display = 'none';
-        } else {
-            const errorText = await response.text();
-            // Mensaje de error
-            statusDiv.className = 'alert alert-danger';
-            statusDiv.innerHTML = `<i class="bi bi-x-circle-fill"></i> Hubo un problema: ${errorText}`;
-        }
-    } catch (error) {
-        // Mensaje de error de red
-        statusDiv.className = 'alert alert-danger';
-        statusDiv.innerHTML = `<i class="bi bi-x-circle-fill"></i> Hubo un problema de conexión. Inténtalo de nuevo.`;
-        console.error('Error:', error);
-    }
-});
-            // --- MEJORA CLAVE ---
-            // Verificamos si la respuesta del servidor fue exitosa (código 200-299)
             if (response.ok) {
-                // Si fue exitosa, intentamos parsear el JSON
                 const result = await response.json();
-                statusDiv.innerHTML = `<strong>¡Reporte enviado con éxito!</strong><br>Tu número de ticket es: <strong>${result.ticketId}</strong><br>Recibirás una confirmación por correo.`;
-                form.reset(); // Limpiamos el formulario
-                subcategoriaContainer.style.display = 'none'; // Ocultamos subcategorías
+                // Mensaje de éxito
+                statusDiv.className = 'alert alert-success';
+                statusDiv.innerHTML = `
+                    <h4 class="alert-heading"><i class="bi bi-check-circle-fill"></i> ¡Reporte enviado con éxito!</h4>
+                    <p class="mb-0">Tu número de ticket es: <strong>${result.ticketId}</strong></p>
+                    <hr>
+                    <p class="mb-0">Recibirás una confirmación por correo en breve.</p>
+                `;
+                form.reset();
+                subcategoriaContainer.style.display = 'none';
             } else {
-                // Si hubo un error (400, 500, etc.), leemos el cuerpo de la respuesta como TEXTO
                 const errorText = await response.text();
-                // Y lanzamos un nuevo error con ese mensaje
-                throw new Error(errorText || 'Error al enviar el reporte.');
+                // Mensaje de error
+                statusDiv.className = 'alert alert-danger';
+                statusDiv.innerHTML = `<i class="bi bi-x-circle-fill"></i> Hubo un problema: ${errorText}`;
             }
         } catch (error) {
-            // Ahora este bloque mostrará el error real del servidor
-            statusDiv.textContent = `Hubo un problema: ${error.message}`;
+            // Mensaje de error de red
+            statusDiv.className = 'alert alert-danger';
+            statusDiv.innerHTML = `<i class="bi bi-x-circle-fill"></i> Hubo un problema de conexión. Inténtalo de nuevo.`;
             console.error('Error:', error);
         }
     });
