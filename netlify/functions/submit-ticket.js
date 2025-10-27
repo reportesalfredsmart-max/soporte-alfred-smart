@@ -98,21 +98,49 @@ exports.handler = async (event, context) => {
         };
         await sheet.addRow(newRow);
 
-        // 4. ENVIAR CORREO DE CONFIRMACIÓN AL USUARIO
-        const mailToUser = {
-            from: `"Soporte Alfred Smart" <${process.env.GMAIL_USER}>`,
-            to: email,
-            subject: `Hemos recibido tu reporte - ${ticketId}`,
-            html: `<h2>Hola, ${nombre}.</h2>
-                   <p>Gracias por contactarnos. Hemos recibido tu reporte y ha sido registrado con el número de ticket:</p>
-                   <h3>${ticketId}</h3>
-                   <p>Nuestro equipo lo revisará y te contactará a la brevedad.</p>
-                   <br>
-                   <p>Atentamente,<br>El equipo de Alfred Smart</p>`,
-        };
-        await transporter.sendMail(mailToUser);
+        // 4. ENVIAR NOTIFICACIÓN AL EQUIPO DE SOPORTE
+const mailToSupport = {
+    from: `"Portal Alfred Smart" <${process.env.GMAIL_USER}>`,
+    to: process.env.SUPPORT_EMAIL,
+    subject: `Nuevo Reporte de Incidencia: ${ticketId}`,
+    html: `
+        <h2>Nuevo Reporte Recibido</h2>
+        <p>Se ha creado un nuevo ticket con el número: <strong>${ticketId}</strong></p>
+        <hr>
+        <h3>Detalles del Reporte:</h3>
+        <ul>
+            <li><strong>Nombre:</strong> ${nombre}</li>
+            <li><strong>Email:</strong> ${email}</li>
+            <li><strong>Teléfono:</strong> ${telefono}</li>
+            <li><strong>Dirección:</strong> ${direccion}, ${piso}, ${ciudad}</li>
+            <li><strong>Prioridad:</strong> ${prioridad}</li>
+            <li><strong>Dispositivo:</strong> ${dispositivo}</li>
+            <li><strong>Subcategoría:</strong> ${subcategoria}</li>
+            <li><strong>Estado Dispositivo:</strong> ${estadoDispositivo}</li>
+            <li><strong>Descripción:</strong> ${descripcion}</li>
+            <li><strong>Adjuntos:</strong> ${attachmentUrls.length > 0 ? attachmentUrls.map(url => `<a href="${url}" target="_blank">Ver Archivo</a>`).join('<br>') : 'No se adjuntaron archivos.'}</li>
+        </ul>
+        <hr>
+        <p>Por favor, gestiona este incidente a la brevedad.</p>
+    `,
+};
+await transporter.sendMail(mailToSupport);
 
-        // 5. RESPONDER AL FRONTEND
+// 5. ENVIAR CORREO DE CONFIRMACIÓN AL USUARIO
+const mailToUser = {
+    from: `"Soporte Alfred Smart" <${process.env.GMAIL_USER}>`,
+    to: email,
+    subject: `Hemos recibido tu reporte - ${ticketId}`,
+    html: `<h2>Hola, ${nombre}.</h2>
+           <p>Gracias por contactarnos. Hemos recibido tu reporte y ha sido registrado con el número de ticket:</p>
+           <h3>${ticketId}</h3>
+           <p>Nuestro equipo lo revisará y te contactará a la brevedad.</p>
+           <br>
+           <p>Atentamente,<br>El equipo de Alfred Smart</p>`,
+};
+await transporter.sendMail(mailToUser);
+
+        // 6. RESPONDER AL FRONTEND
         return {
             statusCode: 200,
             body: JSON.stringify({ message: 'Ticket created successfully', ticketId: ticketId }),
